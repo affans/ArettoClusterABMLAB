@@ -61,12 +61,12 @@ module ArettoClusterABMLAB
             srun_cmd = `srun -J $jobname -n $np -o "job%4t.out" -D $exehome $(srunargs) $exename $exeflags $(worker_arg())`
             srun_proc = open(srun_cmd)
            
-            println("passed in params: $params")
-            @debug "default keys: $stdkeys"
-            @debug "filtered keys is: $p"
-            @debug "constructed srun args: $srunargs"
-            @debug "$srun_cmd"    
-            @debug "srun_process: $(dump(srun_proc))"
+            @info "passed in params: $params"
+            @info "default keys: $stdkeys"
+            @info "filtered keys is: $p"
+            @info "constructed srun args: $srunargs"
+            @info "$srun_cmd"    
+            @info "srun_process: $(dump(srun_proc))"
 
             ## the `srun` Slurm command is now running. 
             ## When the job allocates, it will create number $np text files called "job$4t.out" which have the ip address of the allocated resource where the worker Julia has laucnhed
@@ -83,13 +83,13 @@ module ArettoClusterABMLAB
                         warn("dropping worker: file not created in $(60 + np) seconds")
                         break
                     end
-                    sleep(0.01)
+                    sleep(0.001)
                     ## if a valid output file is made by Slurm, open the file and read the ip address/hostname
                     if isfile(fn) && filesize(fn) > 0
-                        w = open(fn) do f
-                            return split(split(readline(f), ":")[2], "#")
-                        end
-                        break
+                        w = open(fn) do f    
+                            return split(split(readline(f), ":")[2], "#")    
+                        end    
+                        break    
                     end
                 end
                 ## if we get a valid hostname/ipaddress add a WorkerConfig object
