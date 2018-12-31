@@ -63,7 +63,7 @@ module ArettoClusterABMLAB
             srun_cmd = `srun -J $jobname -n $np -o "job%4t.out" -D $exehome $(srunargs) $exename $exeflags $(worker_arg())`
             srun_proc = open(srun_cmd)
            
-            @debug "passed in params: $params"
+            println("passed in params: $params")
             @debug "default keys: $stdkeys"
             @debug "filtered keys is: $p"
             @debug "constructed srun args: $srunargs"
