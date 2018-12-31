@@ -23,6 +23,9 @@ module ArettoClusterABMLAB
 
     function launch(manager::ArettoManager, params::Dict, launched::Array, c::Condition)
         try
+            exehome  = params[:dir]
+            exename  = params[:exename]
+            exeflags = params[:exeflags] 
             # cleanup old files
             map(rm, filter(t -> occursin(r"job.*\.out", t), readdir(exehome)))
 
@@ -52,11 +55,6 @@ module ArettoClusterABMLAB
                 end    
             end
    
-            exehome  = params[:dir]
-            exename  = params[:exename]
-            exeflags = params[:exeflags] 
-            
-            
             np = manager.np
             jobname = "julia-$(getpid())" ## use default jobname.. 
       
