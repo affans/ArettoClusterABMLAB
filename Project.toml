@@ -1,0 +1,7 @@
+name = "ArettoClusterABMLAB"
+uuid = "b56e37e0-0ca4-11e9-3b2a-39d88c7d3201"
+authors = ["affan "]
+version = "0.1.0"
+
+[deps]
+Distributed = "8ba89e20-285c-5b6f-9357-94700520ee1b"
